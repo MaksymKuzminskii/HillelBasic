@@ -1,37 +1,66 @@
 package gmail.kymaxgen;
 
 import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
+
 public class MatricesTransposition10 {
     public static void main(String[] args) {
-        int[] myArray = {3, 5, 1, 16, 3, 7, 9, 11};
-        bubbleSort(myArray);
-        printArray(myArray);
-        int tmp;
-        tmp = myArray[0];
-        myArray[0] = myArray[myArray.length - 1];
-        myArray[myArray.length - 1] = tmp;
-        System.out.println();
-        printArray(myArray);
+        System.out.print("Введіть кількість рядків  матриці (до 20): ");
+        int linesNumber = inputCheck();
+        System.out.print("Введіть кількість стовбчиків: ");
+        int columnNumber = inputCheck();
+        int[][] basicMatrix = new int[linesNumber][columnNumber];
+        fillMatrix(basicMatrix);
+        printMatrix(basicMatrix);
+        int[][] transposedMatrix = transposition(basicMatrix, linesNumber, columnNumber);
+        System.out.print("--- Після транспонування ---");
+        printMatrix(transposedMatrix);
     }
 
-    public static void bubbleSort(int[] array) {
-        int tmp;
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array.length - i - 1; j ++) {
-                if (array[j] > array[j + 1]) {
-                    tmp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = tmp;
-                }
+    public static int[][] transposition(int[][] matrix, int lines, int columns) {
+        int[][] transposedMatrix = new int[columns][lines];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                transposedMatrix[j][i] = matrix[i][j];
             }
         }
-//        System.out.println();
-
+        return transposedMatrix;
     }
 
-    public static void printArray (int[] array) {
-        for (int element : array) {
-            System.out.print(element + ", ");
+    public static int inputCheck() {
+        Scanner scanner = new Scanner(System.in);
+        int parameter;
+        if (scanner.hasNextInt()) {
+            int tmp = scanner.nextInt();
+            if (tmp < 21) {
+                parameter = tmp;
+                return parameter;
+            } else {
+                System.out.println("Введено некоректні дані. Автоматично задано заначення: 5");
+                return 5;
+            }
+        } else {
+            System.out.println("Введено некоректні дані. Автоматично задано заначення: 5");
+            return 5;
+        }
+    }
+
+
+    public static void fillMatrix(int[][] matrix) {
+        Random random = new Random();
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                matrix[i][j] = random.nextInt(10);
+            }
+
+        }
+    }
+
+    public static void printMatrix(int[][] matrix) {
+        System.out.println();
+        for (int[] arrays : matrix) {
+            System.out.println(Arrays.toString(arrays));
         }
     }
 }
