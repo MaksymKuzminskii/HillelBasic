@@ -1,3 +1,4 @@
+/*
 package gmail.kymaxgen;
 
 import java.util.Arrays;
@@ -30,3 +31,4 @@ public class Rugby08 {
         return teamTotalAge / 25;
     }
 }
+*/
